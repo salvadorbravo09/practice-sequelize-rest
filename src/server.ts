@@ -1,12 +1,17 @@
 import express from "express";
 import { sequelize } from "./database/sequelize";
 
+import userRouter from "./routes/user.route";
+import postRouter from "./routes/post.route";
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.get("/", (req, res) => {
-  res.json({ message: "Hello, World!" });
-});
+// Middleware para usar req.body
+app.use(express.json());
+
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/posts", postRouter);
 
 const main = async () => {
   try {
