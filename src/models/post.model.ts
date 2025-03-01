@@ -1,14 +1,17 @@
 import {
   AllowNull,
+  BelongsTo,
   Column,
   DataType,
   Default,
+  ForeignKey,
   IsUUID,
   Length,
   Model,
   PrimaryKey,
   Table,
 } from "sequelize-typescript";
+import { User } from "./user.model";
 
 @Table
 export class Post extends Model {
@@ -31,4 +34,12 @@ export class Post extends Model {
   @Default(false)
   @Column(DataType.BOOLEAN)
   published!: boolean;
+
+  @ForeignKey(() => User)
+  @AllowNull(false)
+  @Column(DataType.UUID)
+  userId!: string;
+
+  @BelongsTo(() => User)
+  author!: User;
 }
