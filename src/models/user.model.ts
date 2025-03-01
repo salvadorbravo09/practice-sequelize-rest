@@ -10,7 +10,9 @@ import {
   IsEmail,
   Unique,
   Length,
+  HasMany,
 } from "sequelize-typescript";
+import { Post } from "./post.model";
 
 @Table
 export class User extends Model {
@@ -30,4 +32,7 @@ export class User extends Model {
   @Length({ min: 2, max: 255 })
   @Column(DataType.STRING)
   name!: string;
+
+  @HasMany(() => Post)
+  posts!: Post[];
 }
